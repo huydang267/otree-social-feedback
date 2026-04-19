@@ -1,0 +1,48 @@
+{{ block title }}
+    Post-Experiment Survey
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .survey-container {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .survey-instructions {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: #495057;
+            text-align: center;
+        }
+        .form-row {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f1f3f5;
+        }
+        .form-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    </style>
+
+    <div class="survey-container">
+        <div class="survey-instructions">
+            Thank you for participating. Please complete the following short survey before finishing.
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                {{ formfields }}
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <button class="btn btn-success btn-lg">Complete Experiment</button>
+    </div>
+{{ endblock }}

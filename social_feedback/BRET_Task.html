@@ -1,0 +1,119 @@
+{{ block title }}
+    Decision Task
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .task-container {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .instructions-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        .input-group {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+    </style>
+
+    <div class="task-container">
+        <div class="alert alert-secondary shadow-sm mb-4">
+            <h5 class="alert-heading mb-3">Task Instructions</h5>
+            <p>You will face a grid of 100 boxes. Hidden behind exactly one of these boxes is a bomb. The other 99 boxes are safe.</p>
+            <p>When you click <b>Start</b>, the system will automatically collect boxes for you at a speed of <strong>1 box every 0.5 seconds</strong>. For each safe box collected, your potential earnings increase by <strong>$0.20</strong>.</p>
+            <p class="mb-0">You can click <b>Stop</b> at any time. If you collect the bomb, your earnings for this task will be <strong>$0</strong>. If you stop before the bomb is collected, you keep the accumulated money.</p>
+            <hr>
+            <p class="text-danger mt-3 mb-0" style="font-size: 1.1em;">
+                <strong>⚠️ REAL CASH PRIZE: You have the chance to win up to $19.80 in real money! At the end of the session, exactly ONE randomly selected player will be paid in real cash based exactly on their box-collection decision right now. Make your choice carefully.</strong>
+            </p>
+        </div>
+
+        <div style="text-align: center; margin: 0 auto; margin-bottom: 20px;">
+            <h4>Boxes Collected: <span id="box-counter" style="font-weight: bold; color: green;">0</span></h4>
+            <h4 class="mt-2">Potential Earnings: <span style="font-weight: bold; color: #d9534f;">$<span id="money-counter">0.00</span></span></h4>
+            <div style="margin-top: 10px;">
+                <button type="button" id="start-btn" class="btn btn-success btn-lg mx-2">Start</button>
+                <button type="button" id="stop-btn" class="btn btn-danger btn-lg mx-2" disabled>Stop</button>
+            </div>
+            <div id="bret-grid" style="display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; max-width: 450px; margin: 20px auto;"></div>
+        </div>
+        
+        <input type="hidden" name="boxes_collected" id="boxes_collected_input" value="0">
+    </div>
+
+    <div style="text-align: center;">
+        {{ next_button }}
+    </div>
+
+    <style>
+        .otree-btn-next { display: none; }
+        .bret-box {
+            width: 40px; 
+            height: 40px; 
+            background-color: #e9ecef; 
+            border: 1px solid #ced4da; 
+            border-radius: 4px;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const grid = document.getElementById('bret-grid');
+            const startBtn = document.getElementById('start-btn');
+            const stopBtn = document.getElementById('stop-btn');
+            const counter = document.getElementById('box-counter');
+            const moneyCounter = document.getElementById('money-counter');
+            const hiddenInput = document.getElementById('boxes_collected_input');
+            const nextBtn = document.querySelector('.otree-btn-next');
+            
+            let boxesCollected = 0;
+            let intervalId = null;
+            const boxes = [];
+            
+            for (let i = 0; i < 100; i++) {
+                const box = document.createElement('div');
+                box.className = 'bret-box';
+                grid.appendChild(box);
+                boxes.push(box);
+            }
+            
+            function stopTask() {
+                clearInterval(intervalId);
+                stopBtn.disabled = true;
+                startBtn.disabled = true;
+                hiddenInput.value = boxesCollected;
+                if (nextBtn) nextBtn.style.display = 'inline-block';
+            }
+
+            startBtn.addEventListener('click', function() {
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+                
+                intervalId = setInterval(function() {
+                    if (boxesCollected < 100) {
+                        boxes[boxesCollected].style.backgroundColor = '#28a745';
+                        boxesCollected++;
+                        counter.innerText = boxesCollected;
+                        moneyCounter.innerText = (boxesCollected * 0.20).toFixed(2);
+                        if (boxesCollected === 100) {
+                            stopTask();
+                        }
+                    }
+                }, 500);
+            });
+            
+            stopBtn.addEventListener('click', stopTask);
+        });
+    </script>
+{{ endblock }}

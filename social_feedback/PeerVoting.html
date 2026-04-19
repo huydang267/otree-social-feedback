@@ -1,0 +1,165 @@
+{{ block title }}
+    Peer Feedback Voting
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .instructions {
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .profile-card {
+            background-color: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        .profile-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-color: #ced4da;
+        }
+        /* Visual style for checked peer card */
+        .peer-checkbox:checked + .profile-card {
+            border-color: #198754;
+            background-color: #f8fff9;
+            box-shadow: 0 0 0 2px #198754;
+        }
+        /* Hidden actual checkboxes */
+        .peer-checkbox {
+            display: none;
+        }
+        .stickers-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .sticker-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: transform 0.2s ease;
+        }
+        .sticker-img:hover {
+            transform: scale(1.1);
+        }
+        .tagline-text {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #495057;
+            text-align: center;
+            font-style: italic;
+            padding: 0.5rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .vote-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #198754;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .peer-checkbox:checked + .profile-card .vote-indicator {
+            opacity: 1;
+        }
+    </style>
+
+    <div class="instructions">
+        <strong>Instructions:</strong> Below are the profiles created by your classmates. Review their selected stickers and taglines. <br><br>
+        <strong>Click on the profiles you like the most to give them a vote!</strong> You may vote for as many profiles as you wish.
+    </div>
+
+    <!-- Hidden input to store comma separated IDs before submit -->
+    <input type="hidden" name="liked_ids" id="liked_ids_input" value="">
+
+    <div class="profiles-grid">
+        {{ for op in other_players }}
+            <label>
+                <!-- the checkbox value is the other player's unique ID -->
+                <input type="checkbox" class="peer-checkbox" value="{{ op.id_in_group }}">
+                <div class="profile-card">
+                    <div class="vote-indicator">✓</div>
+
+                    <div class="stickers-container">
+                        <!-- Sticker 1 -->
+                        {{ for s in ALL_STICKERS }}
+                            {{ if s.id == op.sticker_1 }}
+                                <img src="{{ static s.path }}" class="sticker-img" alt="Sticker 1">
+                            {{ endif }}
+                        {{ endfor }}
+
+                        <!-- Sticker 2 -->
+                        {{ for s in ALL_STICKERS }}
+                            {{ if s.id == op.sticker_2 }}
+                                <img src="{{ static s.path }}" class="sticker-img" alt="Sticker 2">
+                            {{ endif }}
+                        {{ endfor }}
+
+                        <!-- Sticker 3 -->
+                        {{ for s in ALL_STICKERS }}
+                            {{ if s.id == op.sticker_3 }}
+                                <img src="{{ static s.path }}" class="sticker-img" alt="Sticker 3">
+                            {{ endif }}
+                        {{ endfor }}
+                    </div>
+
+                    <div class="tagline-text">
+                        {{ for t in ALL_TAGLINES }}
+                            {{ if t.id == op.tagline }}
+                                "{{ t.text }}"
+                            {{ endif }}
+                        {{ endfor }}
+                    </div>
+                </div>
+            </label>
+        {{ endfor }}
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button type="button" class="btn btn-success btn-lg" onclick="submitVotes()">Submit Votes</button>
+    </div>
+
+    <script>
+        function submitVotes() {
+            // Find all checked boxes
+            const checkedBoxes = document.querySelectorAll('.peer-checkbox:checked');
+
+            // Extract their values (id_in_group)
+            const likedIds = Array.from(checkedBoxes).map(cb => cb.value);
+
+            // Join into comma separated string
+            const likedString = likedIds.join(',');
+
+            // Store string in hidden input
+            document.getElementById('liked_ids_input').value = likedString;
+
+            // Submit form
+            document.getElementById('form').submit();
+        }
+    </script>
+{{ endblock }}

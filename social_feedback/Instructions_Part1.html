@@ -1,0 +1,28 @@
+{{ block title }}
+    Participant Instructions
+{{ endblock }}
+
+{{ block content }}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h3>Participant Instructions</h3>
+            
+            <h4>WELCOME & SEATING PROTOCOL</h4>
+            <p>Welcome to this experiment. You are asked to participate in a study regarding economic decision-making. Upon entering the laboratory, you have been assigned to a computer station corresponding to a unique number. Please do not change seats or look at other screens. Turn off your mobile phones and do not communicate with other participants. If you have a question at any time, raise your hand, and an experimenter will assist you privately. All your decisions will remain confidential and will only be reported in aggregate form.</p>
+            
+            <div class='alert alert-warning'>
+                <h3>PAYMENT (Random Lottery Incentive)</h3>
+                While everyone will complete the tasks, ONE participant in this room will be randomly selected at the end of the session by a computer draw. If you are selected, you will be paid in cash based on the specific decisions you make in Task 2 today. Therefore, you should treat every decision as if it involves real money.
+            </div>
+            
+            <h4>TASK 1: PROFILE CREATION & PEER EVALUATION</h4>
+            <p><strong>Create your Profile:</strong> Select exactly 3 stickers and 1 phrase that best represent your personal style or current mood. Your profile will be displayed anonymously to others.</p>
+            <p><strong>Peer Evaluation:</strong> You will view profiles from other participants and give a 'Like' to those you find appealing. Others will simultaneously evaluate your profile.</p>
+            <p><strong>Transition:</strong> After the evaluation, the system will process the feedback, and you will advance to Task 2.</p>
+        </div>
+    </div>
+    
+    <div style="text-align: right;">
+        {{ next_button }}
+    </div>
+{{ endblock }}

@@ -1,0 +1,54 @@
+{{ block title }}
+    Feedback Results
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .feedback-container {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        .feedback-icon {
+            font-size: 4rem;
+            color: #0d6efd;
+            margin-bottom: 1.5rem;
+        }
+        .feedback-text {
+            font-size: 1.25rem;
+            color: #333;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .highlight {
+            color: #198754;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+    </style>
+
+    <div class="feedback-container">
+        {{ if player.is_treatment }}
+            <div class="feedback-icon">📊</div>
+            <div class="feedback-text">
+                Your profile received <span class="highlight">{{ player.likes_received }}</span> likes.<br><br>
+                Based on peer voting, your profile ranks in the <span class="highlight">Top {{ player.percentile_rank }}%</span> of the class.
+            </div>
+        {{ else }}
+            <div class="feedback-icon">✔️</div>
+            <div class="feedback-text">
+                Thank you.<br>
+                Your profile has been successfully recorded.
+            </div>
+        {{ endif }}
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-primary btn-lg">Next</button>
+    </div>
+{{ endblock }}

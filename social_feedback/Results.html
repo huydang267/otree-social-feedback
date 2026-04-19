@@ -1,0 +1,139 @@
+{{ block title }}
+    Final Results
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .results-container {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .text-lead {
+            font-size: 1.25rem;
+            color: #495057;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .highlight-stat {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 400px;
+            text-align: left;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .stat-row:last-child {
+            margin-bottom: 0;
+            padding-top: 0.5rem;
+            border-top: 1px solid #dee2e6;
+            font-weight: 700;
+        }
+        .alert-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+        .alert-secondary {
+            background-color: #e2e3e5;
+            color: #41464b;
+            border: 1px solid #d3d6d8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+    </style>
+
+    <div class="results-container">
+        <!-- Conditional rendering based on Random Lottery Incentive (RLI) -->
+        {{ if player.selected_for_payout }}
+            <div class="icon">🎉</div>
+            <h2 style="margin-bottom: 1.5rem;">You were selected for the bonus payout!</h2>
+            
+            <div class="text-lead">
+                Out of everyone in your session, you were randomly chosen to have your decision in the box collection task played out for real cash.
+            </div>
+
+            <div class="highlight-stat">
+                <div class="stat-row">
+                    <span>Boxes Collected:</span>
+                    <span>{{ player.boxes_collected }}</span>
+                </div>
+                <div class="stat-row">
+                    <span>Hidden Bomb Location:</span>
+                    <span>Box #{{ player.bomb_location }}</span>
+                </div>
+                <div class="stat-row">
+                    <span>Target Rate:</span>
+                    <span>$0.20 per box</span>
+                </div>
+            </div>
+
+            <!-- Nested conditional to determine if they won or lost the BRET task -->
+            {{ if player.bomb_location <= player.boxes_collected }}
+                <div class="alert-danger">
+                    💥 You collected the box containing the bomb. Your payout for this task is $0.00.
+                </div>
+            {{ else }}
+                <div class="alert-success">
+                    <p class="mb-0">✅ You successfully avoided the bomb! Your final cash payout is <strong>{{ player.payoff }}</strong>.</p>
+                </div>
+            {{ endif }}
+
+        {{ else }}
+            <div class="icon">ℹ️</div>
+            <h2 style="margin-bottom: 1.5rem;">Task Complete</h2>
+            
+            <div class="text-lead">
+                You were not selected for the random cash payout today.<br>
+                However, you can see your theoretical results below!
+            </div>
+
+            <div class="highlight-stat">
+                <div class="stat-row">
+                    <span>Boxes Collected:</span>
+                    <span>{{ player.boxes_collected }}</span>
+                </div>
+                <div class="stat-row">
+                    <span>Hidden Bomb Location:</span>
+                    <span>Box #{{ player.bomb_location }}</span>
+                </div>
+            </div>
+
+            <div class="alert-secondary">
+                Thank you for participating in this research study!
+            </div>
+
+        {{ endif }}
+    </div>
+
+{{ endblock }}

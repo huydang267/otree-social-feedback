@@ -1,0 +1,32 @@
+{{ block title }}
+    Participant Instructions (Continued)
+{{ endblock }}
+
+{{ block content }}
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h4>TASK 2: THE BOX COLLECTION TASK</h4>
+            <p>You will see a grid of 100 boxes.</p>
+            <p><strong>Earnings:</strong> Each box you collect is worth $0.20.</p>
+            <p><strong>The Rule:</strong> Exactly one box contains a hidden "Bomb." Its location is randomly determined and unknown to you.</p>
+            <p><strong>How to play:</strong> Click "Start" to begin. The computer automatically collects one box every 0.5 seconds. Click "Stop" at any time to lock in your collected boxes.</p>
+            <p><strong>Payoff Mechanism:</strong><br>
+            If you click "Stop" before the bomb is collected, you keep the earnings ($Boxes x $0.20).<br>
+            If you collect the bomb, your earnings for this task will be $0.</p>
+            
+            <div class='alert alert-info'>
+                <h3>Examples for Clarification:</h3>
+                <ul>
+                    <li><strong>Example A:</strong> You stop at 30 boxes. The bomb was in box 45. You did not hit the bomb. <strong>Payoff: 30 boxes x $0.20 = $6.00.</strong></li>
+                    <li><strong>Example B:</strong> You stop at 60 boxes. The bomb was in box 45. You hit the bomb. <strong>Payoff: $0.</strong></li>
+                </ul>
+            </div>
+            
+            <p><em>(A short comprehension quiz will follow to ensure you understand these rules before we begin).</em></p>
+        </div>
+    </div>
+    
+    <div style="text-align: right;">
+        {{ next_button }}
+    </div>
+{{ endblock }}

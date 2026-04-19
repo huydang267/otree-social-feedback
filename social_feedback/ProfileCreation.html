@@ -1,0 +1,157 @@
+{{ block title }}
+    Create Your Profile
+{{ endblock }}
+
+{{ block content }}
+    <style>
+        .choice-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        .choice-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        .option-card {
+            background-color: white;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .option-card:hover {
+            border-color: #ced4da;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .option-card.selected {
+            border-color: #0d6efd;
+            background-color: rgba(13, 110, 253, 0.05);
+            box-shadow: 0 0 0 2px #0d6efd;
+        }
+        .sticker-img {
+            max-width: 100%;
+            height: 120px;
+            object-fit: contain;
+        }
+        /* Taglines list style */
+        .tagline-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .tagline-list label {
+            cursor: pointer;
+            padding: 1rem;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .tagline-list label:hover {
+            border-color: #0d6efd;
+            background-color: #f8f9fa;
+        }
+        .tagline-list input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2);
+        }
+    </style>
+
+    <div class="choice-section" id="sticker-container">
+        <div class="choice-title">Select Exactly 3 Stickers</div>
+        <p id="selection-counter" style="color: #6c757d; font-weight: 500;">Selected: 0 / 3</p>
+        
+        <div class="options-grid">
+            {{ for s in ALL_STICKERS }}
+                <div class="option-card sticker-select-card" data-id="{{ s.id }}">
+                    <img src="{{ static s.path }}" class="sticker-img" alt="Sticker">
+                </div>
+            {{ endfor }}
+        </div>
+        
+        <!-- Hidden inputs strictly bound to oTree form fields -->
+        <input type="hidden" name="sticker_1" id="id_sticker_1" required>
+        <input type="hidden" name="sticker_2" id="id_sticker_2" required>
+        <input type="hidden" name="sticker_3" id="id_sticker_3" required>
+    </div>
+
+    <div class="choice-section">
+        <div class="choice-title">Select Your Tagline</div>
+        <div class="tagline-list">
+            {{ for t in ALL_TAGLINES }}
+                <label>
+                    <input type="radio" name="tagline" value="{{ t.id }}" required>
+                    <span style="font-size: 1.1rem; font-style: italic; color: #495057;">"{{ t.text }}"</span>
+                </label>
+            {{ endfor }}
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-primary btn-lg" onclick="return validateStickers()">Complete Profile</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.sticker-select-card');
+            const inputs = [
+                document.getElementById('id_sticker_1'),
+                document.getElementById('id_sticker_2'),
+                document.getElementById('id_sticker_3')
+            ];
+            let selected = [];
+
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    
+                    if (selected.includes(id)) {
+                        // Deselect
+                        selected = selected.filter(x => x !== id);
+                        this.classList.remove('selected');
+                    } else {
+                        // Select if less than 3
+                        if (selected.length < 3) {
+                            selected.push(id);
+                            this.classList.add('selected');
+                        } else {
+                            alert("You have already selected 3 stickers. Please deselect one first to choose a different sticker.");
+                        }
+                    }
+                    
+                    // Update counter
+                    document.getElementById('selection-counter').innerText = 'Selected: ' + selected.length + ' / 3';
+                    
+                    // Update hidden inputs
+                    for(let i=0; i<3; i++) {
+                        inputs[i].value = selected[i] || "";
+                    }
+                });
+            });
+        });
+
+        function validateStickers() {
+            const s1 = document.getElementById('id_sticker_1').value;
+            const s2 = document.getElementById('id_sticker_2').value;
+            const s3 = document.getElementById('id_sticker_3').value;
+            
+            if (!s1 || !s2 || !s3) {
+                alert("Please select exactly 3 stickers before completing your profile.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+{{ endblock }}
