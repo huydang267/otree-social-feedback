@@ -3,26 +3,34 @@
 {{ endblock }}
 
 {{ block content }}
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <h3>Participant Instructions</h3>
-            
-            <h4>WELCOME & SEATING PROTOCOL</h4>
-            <p>Welcome to this experiment. You are asked to participate in a study regarding economic decision-making. Upon entering the laboratory, you have been assigned to a computer station corresponding to a unique number. Please do not change seats or look at other screens. Turn off your mobile phones and do not communicate with other participants. If you have a question at any time, raise your hand, and an experimenter will assist you privately. All your decisions will remain confidential and will only be reported in aggregate form.</p>
-            
-            <div class='alert alert-warning'>
-                <h3>PAYMENT (Random Lottery Incentive)</h3>
-                While everyone will complete the tasks, ONE participant in this room will be randomly selected at the end of the session by a computer draw. If you are selected, you will be paid in cash based on the specific decisions you make in Task 2 today. Therefore, you should treat every decision as if it involves real money.
-            </div>
-            
-            <h4>TASK 1: PROFILE CREATION & PEER EVALUATION</h4>
-            <p><strong>Create your Profile:</strong> Select exactly 3 stickers and 1 phrase that best represent your personal style or current mood. Your profile will be displayed anonymously to others.</p>
-            <p><strong>Peer Evaluation:</strong> You will view profiles from other participants and give a 'Like' to those you find appealing. Others will simultaneously evaluate your profile.</p>
-            <p><strong>Transition:</strong> After the evaluation, the system will process the feedback, and you will advance to Task 2.</p>
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title border-bottom pb-2">Participant Instructions</h3>
+        
+        <h4 class="mt-4">WELCOME & SEATING PROTOCOL</h4>
+        <p>
+            Welcome to this experiment. You are asked to participate in a study regarding economic decision-making. 
+            Upon entering the laboratory, you have been assigned to a computer station corresponding to a unique number. 
+            Please do not change seats or look at other screens. Turn off your mobile phones and do not communicate with other participants. 
+            If you have a question at any time, please raise your hand, and an experimenter will assist you privately. 
+            All your decisions and responses today will remain <strong>confidential</strong> and will only be reported in aggregate form.
+        </p>
+
+        <div class="alert alert-warning mt-4 shadow-sm">
+            <h4 class="alert-heading">PAYMENT (Random Lottery Incentive)</h4>
+            <p class="mb-0">
+                While everyone will complete the tasks, <strong>ONE</strong> participant in this room will be randomly selected at the end of the session by a computer draw. If you are selected, your final payout will be paid in <strong>cash</strong> based on the specific decisions you make in Task 2 today. Therefore, since your potential earnings depend on your choices, you should treat every decision as if it involves real money.
+            </p>
         </div>
+
+        <h4 class="mt-4">TASK 1: PROFILE CREATION & COMMUNITY INTERACTION</h4>
+        <ol>
+            <li><strong>Create your Profile:</strong> You will be presented with a gallery of visual stickers and text phrases. Please select exactly 3 stickers and 1 phrase that best represent your personal style or current mood. Your profile will be displayed <strong>anonymously</strong>; no names or identifying information will be shown to other participants.</li>
+            <li class="mt-2"><strong>Profile Interaction:</strong> Once all profiles are created, your profile will be public to the room. The system will randomly display profiles from other participants, and you can choose to give a "Like" to the profiles you are attracted to or find appealing. Other participants will also be viewing the profiles.</li>
+            <li class="mt-2"><strong>Transition:</strong> Once this phase concludes, the system will process the "Likes", and you will advance to Task 2.</li>
+        </ol>
     </div>
-    
-    <div style="text-align: right;">
-        {{ next_button }}
-    </div>
+</div>
+
+{{ next_button }}
 {{ endblock }}

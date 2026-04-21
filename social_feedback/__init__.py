@@ -135,6 +135,18 @@ class Player(BasePlayer):
         blank=True
     )
 
+    quiz_1 = models.StringField(
+        label='Question 1: Suppose you click "Stop" after collecting 20 boxes. Later, it is revealed that the bomb was hidden in box 75. What will your earnings be for this task?',
+        choices=['$0.00', '$2.00', '$4.00', '$20.00'],
+        widget=widgets.RadioSelect
+    )
+
+    quiz_2 = models.StringField(
+        label='Question 2: Suppose you click "Stop" after collecting 50 boxes. Later, it is revealed that the bomb was hidden in box 12. What will your earnings be for this task?',
+        choices=['$0.00', '$2.40', '$10.00', '$50.00'],
+        widget=widgets.RadioSelect
+    )
+
     selected_for_payout = models.BooleanField(initial=False)
 
 
@@ -144,6 +156,21 @@ class Instructions_Part1(Page):
 
 class Instructions_Part2(Page):
     pass
+
+class ComprehensionQuiz(Page):
+    form_model = 'player'
+    form_fields = ['quiz_1', 'quiz_2']
+
+    @staticmethod
+    def error_message(player, values):
+        errors = {}
+        if values['quiz_1'] != '$4.00':
+            errors['quiz_1'] = 'Incorrect. If you do not collect the bomb, you keep $0.20 for every box (20 x $0.20 = $4.00).'
+        if values['quiz_2'] != '$0.00':
+            errors['quiz_2'] = 'Incorrect. If the bomb is among your collected boxes, your earnings drop to $0.00.'
+        
+        if errors:
+            return errors
 
 class ProfileCreation(Page):
     form_model = 'player'
@@ -305,6 +332,7 @@ class Results(Page):
 page_sequence = [
     Instructions_Part1,
     Instructions_Part2,
+    ComprehensionQuiz,
     ProfileCreation, 
     VotingWaitPage, 
     PeerVoting, 

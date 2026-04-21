@@ -36,8 +36,7 @@
         {{ if player.is_treatment }}
             <div class="feedback-icon">📊</div>
             <div class="feedback-text">
-                Your profile received <span class="highlight">{{ player.likes_received }}</span> likes.<br><br>
-                Based on peer voting, your profile ranks in the <span class="highlight">Top {{ player.percentile_rank }}%</span> of the class.
+                Your profile received <span class="highlight">{{ player.likes_received }}</span> likes.
             </div>
         {{ else }}
             <div class="feedback-icon">✔️</div>

@@ -3,30 +3,37 @@
 {{ endblock }}
 
 {{ block content }}
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <h4>TASK 2: THE BOX COLLECTION TASK</h4>
-            <p>You will see a grid of 100 boxes.</p>
-            <p><strong>Earnings:</strong> Each box you collect is worth $0.20.</p>
-            <p><strong>The Rule:</strong> Exactly one box contains a hidden "Bomb." Its location is randomly determined and unknown to you.</p>
-            <p><strong>How to play:</strong> Click "Start" to begin. The computer automatically collects one box every 0.5 seconds. Click "Stop" at any time to lock in your collected boxes.</p>
-            <p><strong>Payoff Mechanism:</strong><br>
-            If you click "Stop" before the bomb is collected, you keep the earnings ($Boxes x $0.20).<br>
-            If you collect the bomb, your earnings for this task will be $0.</p>
-            
-            <div class='alert alert-info'>
-                <h3>Examples for Clarification:</h3>
-                <ul>
-                    <li><strong>Example A:</strong> You stop at 30 boxes. The bomb was in box 45. You did not hit the bomb. <strong>Payoff: 30 boxes x $0.20 = $6.00.</strong></li>
-                    <li><strong>Example B:</strong> You stop at 60 boxes. The bomb was in box 45. You hit the bomb. <strong>Payoff: $0.</strong></li>
-                </ul>
-            </div>
-            
-            <p><em>(A short comprehension quiz will follow to ensure you understand these rules before we begin).</em></p>
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title border-bottom pb-2">TASK 2: THE BOX COLLECTION TASK</h3>
+        
+        <p class="mt-3">In this task, you will see a grid containing <strong>100 boxes</strong>.</p>
+        
+        <ul>
+            <li><strong>Earnings:</strong> Each box you collect is worth <strong>$0.20</strong>.</li>
+            <li><strong>The Rule:</strong> Out of the 100 boxes, exactly <strong>one</strong> box contains a hidden "Bomb." The location of the bomb is randomly determined by the computer and is completely unknown to you.</li>
+            <li><strong>How to play:</strong> Once you click "Start," the computer will automatically collect one box every 0.5 seconds. You can click the <strong>"Stop"</strong> button at any time to lock in your collected boxes.</li>
+        </ul>
+
+        <h5 class="mt-4">Payoff Mechanism:</h5>
+        <ul>
+            <li>If you click "Stop" <em>before</em> the bomb is collected, you keep the earnings for all the boxes you collected (Number of boxes &times; $0.20).</li>
+            <li>If the bomb is among the boxes you collected, your earnings for this task will drop to <strong>$0</strong>.</li>
+        </ul>
+
+        <div class="alert alert-info mt-4 shadow-sm">
+            <h5 class="alert-heading">Examples for Clarification:</h5>
+            <ul class="mb-0 mt-2">
+                <li><strong>Example A:</strong> You click "Stop" after collecting 30 boxes. The bomb was hidden in box 45. Since 45 is greater than 30, you did not collect the bomb. <br><strong>Payoff: 30 boxes &times; $0.20 = $6.00.</strong></li>
+                <li class="mt-2"><strong>Example B:</strong> You click "Stop" after collecting 60 boxes. The bomb was hidden in box 45. Since you collected the bomb... <br><strong>Payoff: $0.</strong></li>
+            </ul>
         </div>
+
+        <p class="text-muted fst-italic mt-3">
+            (You will now complete a short quiz on your screen to ensure you perfectly understand the payout rules before the task begins).
+        </p>
     </div>
-    
-    <div style="text-align: right;">
-        {{ next_button }}
-    </div>
+</div>
+
+{{ next_button }}
 {{ endblock }}
