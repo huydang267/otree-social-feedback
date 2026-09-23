@@ -1,5 +1,5 @@
-# oTree-may-overwrite-this-file
-# IF YOU MODIFY THIS FILE, remove this comment.
-# otherwise, oTree will automatically overwrite it.
+# Modified from the oTree default - the auto-overwrite comment was removed
+# deliberately so that python-dotenv is not stripped.
 otree>=5.0.0a21
 psycopg2-binary>=2.8.4
+python-dotenv>=1.0.0

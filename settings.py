@@ -38,4 +38,7 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 
 DEMO_PAGE_INTRO_HTML = """ """
 
-SECRET_KEY = '3013308604382'
+# Session-signing key. Read from the environment so no secret is committed.
+# The fallback is for local development ONLY and must never be used in a
+# deployment - see .env.example.
+SECRET_KEY = environ.get('OTREE_SECRET_KEY', 'dev-only-insecure-key-change-me')
